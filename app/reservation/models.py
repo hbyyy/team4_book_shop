@@ -11,7 +11,7 @@ class Reservation(models.Model):
     book = models.ForeignKey('books.Book', on_delete=models.CASCADE)
     user = models.ForeignKey('members.User', on_delete=models.CASCADE)
     start_date = models.DateTimeField(default=timezone.now)
-    end_date = models.DateTimeField()
+    end_date = models.DateTimeField(null=True)
 
     def save(self, *args, **kwargs):
         self.end_date = self.start_date + timedelta(days=3)
