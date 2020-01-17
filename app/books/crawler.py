@@ -26,19 +26,21 @@ def research_page_crawler(research_keyword='javascript'):
 
         href = 'http://www.yes24.com' + test['href']
         href_list.append(href)
-        print(href_list)
-        print(search_list)
-        book_research_list_data = {}
-        for href, title in zip(href_list, search_list):
-            book_research_list_data[title] = href
-        return book_research_list_data
+    print(href_list)
+    print(search_list)
+    book_research_list_data = {}
+    for href, title in zip(href_list, search_list):
+        book_research_list_data[title] = href
+    return book_research_list_data
 
 
 def detail_page_crawler(book_research_list_data, name="생활코딩! HTML+CSS+자바스크립트", ):
     soup = book_requests(book_research_list_data[name])
     em_imgBdr = soup.find('em', class_='imgBdr')
     imgURL = em_imgBdr.find("img")['src']
-    outpath = os.path.dirname('/home/kimdooh/바탕화면/')
+    pwd_path = os.getcwd()
+
+    outpath = os.path.dirname('/home/kimdooh/')
     download_URL = em_imgBdr.find("img")["alt"] + '.jpg'
     image_path = outpath + '/' + download_URL
     # URL download
