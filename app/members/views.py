@@ -10,6 +10,9 @@ User = get_user_model()
 
 def login_view(request):
 
+    if request.user.is_authenticated is True:
+        return redirect('books:book-list')
+
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
