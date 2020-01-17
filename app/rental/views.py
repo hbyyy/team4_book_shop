@@ -11,6 +11,7 @@ from rental.models import Rental
 
 def rental_view(request, book_pk):
     book = Book.objects.get(pk=book_pk)
+    print(request.user)
     Rental.objects.create(book=book, user=request.user)
     return redirect('books:book-list')
 
