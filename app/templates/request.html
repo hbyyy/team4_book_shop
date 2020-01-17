@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{http://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+{% endblock %}
+
+{% block content %}
+
+    <form action="" method="get">
+        <input type="text" name="keyword">
+        <button type="submit">검색</button>
+
+
+    </form>
+
+    {% for key,value in book_list.items %}
+        <div> {{ key }}</div><button type="submit">신청</button>
+    {% endfor %}
+
+{% endblock %}
+
+
