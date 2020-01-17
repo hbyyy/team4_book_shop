@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="mr-auto ml-auto mt-3
+                    col-10" width="700px">
+            <h1>apply form</h1>
+
+            <hr>
+
+            <div class="container">
+                <img src="{{image_path}}" class="img-fluid" alt="Responsive image">
+
+
+
+            <table class="table table-dark" >
+              <tbody>
+                <tr>
+                  <td width="90px">제목</td>
+                  <td width="500px">{{book_info.title}}</td>
+                </tr>
+                <tr>
+                  <td width="90px">분류</td>
+                  <td width="500px">{{book_info.category}}</td>
+                </tr>
+                <tr>
+                  <td width="90px">책소개</td>
+                  <td width="500px">{{book_info.book_intro}}</td>
+                </tr>
+                <tr>
+                  <td width="90px">이미지</td>
+                  <td width="500px">{{image_path}}</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
