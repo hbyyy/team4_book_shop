@@ -4,10 +4,17 @@
     {% for book in books %}
         <div class="d-flex border m-4">
             <img src="{{ book.image.url }}" alt="" class="img-responsive" width="100px" height="100px">
-            <a href="{% url 'books:detail' %}">{{ book.title }}</a>
+            <a href="{% url 'books:detail' book_pk=book.pk %}">{{ book.title }}</a>
             {% if book.rental.user == request.user %}
                 <div>
                     <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}" class="bth btn-primary p-3">반납</a>
+                </div>
+            {% elif book.rental.user and book.rental.user is not request.user %}
+                <div>
+                    {#                    <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}" class="bth btn-primary p-3">대출중</a>#}
+
+                    <p>대출중</p>
+
                 </div>
             {% else %}
                 <div class="text-center">
