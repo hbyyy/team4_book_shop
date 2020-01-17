@@ -9,10 +9,6 @@
                 <div>
                     <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}" class="bth btn-primary p-3">반납</a>
                 </div>
-            {% elif book.rental is not None and book.rental.user != request.user %}
-                <div>
-                    <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}" class="bth btn-primary p-3">예약하기</a>
-                </div>
             {% else %}
                 <div class="text-center">
                     <a type="submit" href="{% url 'rental:rental' book_pk=book.pk %}" class="bth btn-primary p-3">대출</a>

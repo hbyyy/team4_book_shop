@@ -14,7 +14,7 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             form.login(request)
-            return redirect('members:login')
+            return redirect('books:book-list')
     else:
         form = LoginForm()
 
@@ -46,7 +46,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('#')
+            return redirect('books:book-list')
     else:
         form = SignupForm()
 
