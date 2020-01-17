@@ -44,6 +44,13 @@ def detail_page_crawler(url):
     imgURL = em_imgBdr.find("img")['src']
     pwd_path = os.getcwd()
 
+
+
+    # print(em_imgBdr.find("img")["alt"])
+
+
+
+
     outpath = os.path.join(settings.MEDIA_ROOT, 'books', 'image')
     download_URL = em_imgBdr.find("img")["alt"] + '.jpg'
     image_path = outpath + '/' + download_URL
