@@ -5,9 +5,24 @@
         <div class="d-flex border m-4">
             <img src="{{ book.image.url }}" alt="" class="img-responsive" width="100px" height="100px">
             <a href="{% url 'books:detail' %}">{{ book.title }}</a>
-            <div class="text-center">
-                <a type="submit" href="{% url 'rental:rental' book_pk=book.pk %}" class="bth btn-primary p-3">대출</a>
-            </div>
+            {% if book.rental.user == request.user %}
+                <div>
+                    <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}" class="bth btn-primary p-3">반납</a>
+                </div>
+            {% else %}
+                <div class="text-center">
+                    <a type="submit" href="{% url 'rental:rental' book_pk=book.pk %}" class="bth btn-primary p-3">대출</a>
+                </div>
+            {% endif %}
         </div>
     {% endfor %}
+    <div>
+        <h1>빌린 책 목록</h1>
+        {% for rental in request.user.rental_set.all %}
+            <p>{{ rental.book.title }}</p>
+            <p>{{ rental.end_date }}</p>
+            <hr>
+        {% endfor %}
+
+    </div>
 {% endblock %}
