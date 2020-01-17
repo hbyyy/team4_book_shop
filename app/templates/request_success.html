@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="mr-auto ml-auto mt-3
                     col-10" width="700px">
-            <h1>apply form</h1>
+            <h1>책 신청 료</h1>
 
             <hr>
 
@@ -33,13 +33,12 @@
                   <td width="90px">책소개</td>
                   <td width="500px">{{book_info.book_intro}}</td>
                 </tr>
-                <tr>
-                  <td width="90px">이미지</td>
-                  <td width="500px">{{image_path}}</td>
-                </tr>
+
 
               </tbody>
+
             </table>
+                <a href="{% url 'books:book-list' %}">돌아가기</a>
 
         </div>
     </div>

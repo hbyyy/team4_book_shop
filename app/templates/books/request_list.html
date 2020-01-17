@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for bookreq in bookrequests %}
+<div class="d-flex border m-4">
+
+    <a href="">{{ bookreq.title }}</a>
+    <div class="text-center">
+        <a type="submit" href="" class="bth btn-primary p-3">책 추가</a>
+    </div>
+
+</div>
+{% endfor %}
+
+{% endblock %}
