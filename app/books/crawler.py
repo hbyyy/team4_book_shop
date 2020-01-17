@@ -12,7 +12,7 @@ def book_requests(url):
     return soup
 
 
-def research_page_crawler(research_keyword='javascript'):
+def research_page_crawler(research_keyword):
     url = 'http://www.yes24.com/searchcorner/Search?keywordAd=&keyword=&domain=ALL&qdomain=%C0%FC%C3%BC&Wcode=001_005&query=' + research_keyword
     soup = book_requests(url)
     div_goodsList = soup.select_one('div.goodsList')
