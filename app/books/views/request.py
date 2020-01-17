@@ -50,3 +50,11 @@ def book_request_save_view(request):
 
         )
         return render(request, 'request_success.html', context)
+
+
+def book_request_confirm(request):
+    bookrequests = BookRequest.objects.all()
+    context = {
+        'bookrequests': bookrequests
+    }
+    return render(request, 'books/request_list.html', context)
