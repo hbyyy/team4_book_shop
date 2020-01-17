@@ -1,7 +1,9 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-    <div></div>
-
-{% endblock %}
+    <div>
+        <div>제목   : {{selected_book.title}} </div> 
+        <div>
+            <div>분류   : {{selected_book.category}}</div>
+        </div>
+        <div>책소개 : {{selected_book.book_intro}} </div> 
+        <img src="/media/{{selected_book.image}}"  width="300px" height="200px">
+        <div>{{selected_book.image}}</div> 
+    </div>
