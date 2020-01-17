@@ -15,12 +15,19 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from members import views
 
 from config import settings
 
 urlpatterns = [
+    path('', views.login_view, name='login'),
     path('admin/', admin.site.urls),
+    path('members/', include('members.urls')),
+    path('books/', include('books.urls')),
+    path('rental/', include('rental.urls')),
+    path('reservation', include('reservation.urls')),
 ]
 
 urlpatterns += static(
