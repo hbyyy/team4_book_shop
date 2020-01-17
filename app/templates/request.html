@@ -6,16 +6,23 @@
 {% endblock %}
 
 {% block content %}
-
-    <form action="" method="get">
-        <input type="text" name="keyword">
-        <button type="submit">검색</button>
-
-
-    </form>
-
+    <div class="form-group">
+        <form action="" method="get">
+            <input type="text" name="keyword">
+            <button type="submit">검색</button>
+        </form>
+    </div>
     {% for key,value in book_list.items %}
-        <div> {{ key }}</div><button type="submit">신청</button>
+        <div>
+            <div> {{ key }}</div>
+
+            <form action="{% url 'books:book-request-save' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" value="{{ value }}" name="url">신청하기 </button>
+            </form>
+
+{#            <button type="submit" name="request" value="{{ value }}">신청</button>#}
+        </div>
     {% endfor %}
 
 {% endblock %}
