@@ -10,4 +10,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('naver-login/', views.naver_login, name='naver-login'),
 
+
 ]
