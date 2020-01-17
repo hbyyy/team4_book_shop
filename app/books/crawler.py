@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import urllib.request
 import os
 
+from config import settings
+
 
 def book_requests(url):
     URL = url
@@ -16,6 +18,8 @@ def research_page_crawler(research_keyword):
     url = 'http://www.yes24.com/searchcorner/Search?keywordAd=&keyword=&domain=ALL&qdomain=%C0%FC%C3%BC&Wcode=001_005&query=' + research_keyword
     soup = book_requests(url)
     div_goodsList = soup.select_one('div.goodsList')
+    if div_goodsList is None:
+        return None
     td_goods_infogrp = div_goodsList.select('td.goods_infogrp')
 
     search_list = []
@@ -34,13 +38,13 @@ def research_page_crawler(research_keyword):
     return book_research_list_data
 
 
-def detail_page_crawler(book_research_list_data, name="생활코딩! HTML+CSS+자바스크립트", ):
-    soup = book_requests(book_research_list_data[name])
+def detail_page_crawler(url):
+    soup = book_requests(url)
     em_imgBdr = soup.find('em', class_='imgBdr')
     imgURL = em_imgBdr.find("img")['src']
     pwd_path = os.getcwd()
 
-    outpath = os.path.dirname('/home/kimdooh/')
+    outpath = os.path.join(settings.MEDIA_ROOT, 'books', 'image')
     download_URL = em_imgBdr.find("img")["alt"] + '.jpg'
     image_path = outpath + '/' + download_URL
     # URL download
@@ -64,6 +68,6 @@ def detail_page_crawler(book_research_list_data, name="생활코딩! HTML+CSS+�
         'title': title,
         'image_path': image_path,
         'category': categories_order_detail,
-        'book_intro': book_intro,
+        'book_intro': book_introduce_textarea,
     }
     return book_detail_info_dict
