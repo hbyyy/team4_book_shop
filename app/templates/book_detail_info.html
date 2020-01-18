@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
@@ -7,36 +6,67 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        <div class="mr-auto ml-auto mt-3
-                    col-10" width="700px">
-            <h1>Book Detail Info</h1>
+    {#    <div class="container-fluid">#}
+    {#        <div class="mr-auto ml-auto mt-3#}
+    {#                    col-10" width="700px">#}
+    {#            <h1>Book Detail Info</h1>#}
+    {##}
+    {#            <hr>#}
+    {##}
+    {#            <div class="container">#}
+    {#                <img src="/media/{{selected_book.image}}" class="img-fluid" alt="Responsive image">#}
+    {##}
+    {##}
+    {##}
+    {#            <table class="table table-dark" >#}
+    {#              <tbody>#}
+    {#                <tr>#}
+    {#                  <td width="90px">제목</td>#}
+    {#                  <td width="500px">{{selected_book.title}}</td>#}
+    {#                </tr>#}
+    {#                <tr>#}
+    {#                  <td width="90px">분류</td>#}
+    {#                  <td width="500px">{{selected_book.category}}</td>#}
+    {#                </tr>#}
+    {#                <tr>#}
+    {#                  <td width="90px">책소개</td>#}
+    {#                  <td width="500px">{{selected_book.book_intro}}</td>#}
+    {#                </tr>#}
+    {##}
+    {#              </tbody>#}
+    {#            </table>#}
+    {##}
+    {#        </div>#}
+    {#    </div>#}
 
-            <hr>
+{#    <div class="mr-auto ml-auto mt-3#}
+    {#                    col-10" width="700px">#}
+        <h1 class="text-center">책 상세정보</h1>
+        <hr>
+        <div class="d-flex align-items-stretch justify-content-center">
+            <div>
+                <img src="/media/{{ selected_book.image }}" class="img-fluid" alt="Responsive image">
+            </div>
+            <div>
+                <table class="table table-dark h-100">
+                    <tbody>
+                    <tr>
+                        <td width="90px">제목</td>
+                        <td width="500px">{{ selected_book.title }}</td>
+                    </tr>
+                    <tr>
+                        <td width="90px">분류</td>
+                        <td width="500px">{{ selected_book.category }}</td>
+                    </tr>
+                    <tr>
+                        <td width="90px">책소개</td>
+                        <td width="500px">{{ selected_book.book_intro }}</td>
+                    </tr>
 
-            <div class="container">
-                <img src="/media/{{selected_book.image}}" class="img-fluid" alt="Responsive image">
-
-
-
-            <table class="table table-dark" >
-              <tbody>
-                <tr>
-                  <td width="90px">제목</td>
-                  <td width="500px">{{selected_book.title}}</td>
-                </tr>
-                <tr>
-                  <td width="90px">분류</td>
-                  <td width="500px">{{selected_book.category}}</td>
-                </tr>
-                <tr>
-                  <td width="90px">책소개</td>
-                  <td width="500px">{{selected_book.book_intro}}</td>
-                </tr>
-
-              </tbody>
-            </table>
-
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+
+
 {% endblock %}

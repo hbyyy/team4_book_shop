@@ -2,38 +2,51 @@
 
 {% block content %}
     <div class="d-flex flex-row flex-wrap">
-    {% for book in books %}
-        <div class="card m-5" style="width: 14rem;">
-            <img src="{{ book.image.url }}" alt="" class="card-img-top" width="152px" height="225px">
-            <a  href="{% url 'books:detail' book_pk=book.pk %}" class="card-title">{{ book.title }}</a>
-            {% if book.rental.user == request.user %}
-                <div class="">
-                    <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}" class="bth btn-danger btn-lg btn-block">반납</a>
+        {% for book in books %}
+            <div class="card m-5" style="width: 16rem;">
+                <div class="card-header bg-white">
+                    <img src="{{ book.image.url }}" alt="" class="card-img-top border border-dark">
                 </div>
-            {% elif book.rental.user and book.rental.user is not request.user %}
-                <div>
-                    {#                    <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}" class="bth btn-primary p-3">대출중</a>#}
+                {#                    <div class="card-title text-center mt-auto mb-auto">#}
+                <div class="card-body text-center">
+                    <a href="{% url 'books:detail' book_pk=book.pk %}" class="card-link">{{ book.title }}</a>
+                    {#                    </div>#}
+                </div>
+                <div class="p-0 d-flex justify-content-center">
+                    {% if book.rental.user == request.user %}
+                        <div class="text-center col p-0">
+                            <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}"
+                               class="bth btn-danger btn-lg btn-block">반납</a>
+                        </div>
+                    {% elif book.rental.user and book.rental.user is not request.user %}
+                        <div class="text-center col p-0">
+                            {#                    <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}" class="bth btn-primary p-3">대출중</a>#}
 
-                    <p>대출중</p>
+                            <p class="m-auto text-danger">대출중</p>
+                            <p class="text-secondary d-inline" style="font-size: 0.8rem">빌린사람
+                                : {{ book.rental.user.username }}</p>
 
+                        </div>
+                        <br>
+                    {% else %}
+                        <div class="text-center col p-0">
+                            <a type="submit" href="{% url 'rental:rental' book_pk=book.pk %}"
+                               class="bth btn-primary btn-lg btn-block">대출</a>
+                        </div>
+                    {% endif %}
                 </div>
-                <br>
-            {% else %}
-                <div class="text-center">
-                    <a type="submit" href="{% url 'rental:rental' book_pk=book.pk %}" class="bth btn-primary btn-lg btn-block">대출</a>
-                </div>
-            {% endif %}
-        </div>
-    {% endfor %}
+            </div>
+
+        {% endfor %}
     </div>
     <br>
     <div class="list-group-item-action">
         <h2 class=list-group-item-action">빌린 책 목록</h2>
         {% for rental in request.user.rental_set.all %}
             <ul class="list-group">
-            <li class="list-group-item">{{ rental.book.title }}</li>
+                <li class="list-group-item">{{ rental.book.title }}</li>
                 <li class="list-group-item">{{ rental.end_date }}</li>
-            <hr>
+                <hr>
             </ul>
         {% endfor %}
 
