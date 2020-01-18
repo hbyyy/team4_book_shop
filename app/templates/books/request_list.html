@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% for bookreq in bookrequests %}
-<div class="d-flex border m-4">
+    {% for bookreq in bookrequests %}
+        <div class="d-flex border m-4 justify-content-between">
+            <img src="{{ bookreq.image.url }}" alt="" class="img-responsive" width="100px" height="100px">
+            <h4 class="mb-auto mt-auto">{{ bookreq.title }}</h4>
+            <div class="bg-light col-2">
+                <div>
+                    <a href="{% url 'books:book-request-confirm' bookrequest_pk=bookreq.pk %}"
+                       class="bth btn-outline-primary mt-3">책 추가</a>
+                </div>
+            </div>
 
-    <a href="">{{ bookreq.title }}</a>
-    <div class="text-center">
-        <a type="submit" href="" class="bth btn-primary p-3">책 추가</a>
-    </div>
-
-</div>
-{% endfor %}
+        </div>
+    {% endfor %}
 
 {% endblock %}

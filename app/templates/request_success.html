@@ -10,12 +10,12 @@
     <div class="container-fluid">
         <div class="mr-auto ml-auto mt-3
                     col-10" width="700px">
-            <h1>책 신청 료</h1>
+            <h1>책 신청 완료</h1>
 
             <hr>
 
             <div class="container">
-                <img src="{{image_path}}" class="img-fluid" alt="Responsive image">
+                <img src="{{bookrequest.image.url}}" class="img-fluid" alt="Responsive image">
 
 
 
@@ -23,15 +23,15 @@
               <tbody>
                 <tr>
                   <td width="90px">제목</td>
-                  <td width="500px">{{book_info.title}}</td>
+                  <td width="500px">{{bookrequest.title}}</td>
                 </tr>
                 <tr>
                   <td width="90px">분류</td>
-                  <td width="500px">{{book_info.category}}</td>
+                  <td width="500px">{{bookrequest.category}}</td>
                 </tr>
                 <tr>
                   <td width="90px">책소개</td>
-                  <td width="500px">{{book_info.book_intro}}</td>
+                  <td width="500px">{{bookrequest.book_intro}}</td>
                 </tr>
 
 

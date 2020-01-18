@@ -9,5 +9,6 @@ urlpatterns = [
     path('book-request/', request.book_request_view, name='book-request'),
     path('book-list/', main.book_list_view, name='book-list'),
     path('book-request-save/', request.book_request_save_view, name='book-request-save'),
-    path('book-request-confirm/' ,request.book_request_confirm, name='book-request-confirm'),
+    path('book-request-confirm/', request.book_request_confirm, name='book-request-list'),
+    path('book-request-confirm/<int:bookrequest_pk>/', request.book_request_confirm, name='book-request-confirm'),
 ]
