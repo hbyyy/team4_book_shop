@@ -1,8 +1,7 @@
-from django.http import HttpResponse
+from django.core.files import File
 from django.shortcuts import render, redirect
 
-from books.models import BookRequest
-from .. import crawler
+from books.models import BookRequest, Book
 from ..crawler import research_page_crawler, detail_page_crawler
 
 
@@ -36,25 +35,51 @@ def book_request_save_view(request):
         url = request.POST['url']
         book_info = detail_page_crawler(url)
         print(book_info)
-        image_path ='/'+ book_info['image_path'].split('.')[1] + '.' + book_info['image_path'].split('.')[2]
-        image_path_vol1 = image_path.replace(' ',"_")
-        context = {
-            'book_info' : book_info,
-            'image_path' : image_path,
-        }
-        BookRequest.objects.create(
-            title=book_info['title'],
-            category=book_info['category'],
-            book_intro=book_info['book_intro'],
-            image=book_info['image_path'],
+        # image_path ='/'+ book_info['image_path'].split('.')[1] + '.' + book_info['image_path'].split('.')[2]
+        # image_path_vol1 = image_path.replace(' ',"_")
+        image_path = book_info['image_path']
+        with open(image_path, 'rb') as f:
+            image = File(f)
+            print(image.name, image.size)
+            bookrequest = BookRequest(
+                title=book_info['title'],
+                category=book_info['category'],
+                book_intro=book_info['book_intro'],
+            )
+            bookrequest.image.save(book_info['title'] + '.jpg', image, save=False)
+            bookrequest.save()
+            # bookrequest.image.sa
 
-        )
+        context = {
+            'bookrequest': bookrequest,
+        }
+        # context = {
+        #     'book_info' : book_info,
+        #     'image_path' : image_path,
+        # }
+        # BookRequest.objects.create(
+        #     title=book_info['title'],
+        #     category=book_info['category'],
+        #     book_intro=book_info['book_intro'],
+        #     image=book_info['image_path'],
+        # )
         return render(request, 'request_success.html', context)
 
 
-def book_request_confirm(request):
-    bookrequests = BookRequest.objects.all()
-    context = {
-        'bookrequests': bookrequests
-    }
-    return render(request, 'books/request_list.html', context)
+def book_request_confirm(request, bookrequest_pk=None):
+    if bookrequest_pk is None:
+        bookrequests = BookRequest.objects.all()
+        context = {
+            'bookrequests': bookrequests
+        }
+        return render(request, 'books/request_list.html', context)
+    else:
+        bookrequest = BookRequest.objects.get(pk=bookrequest_pk)
+        Book.objects.create(
+            title=bookrequest.title,
+            category=bookrequest.category,
+            book_intro=bookrequest.book_intro,
+            image=bookrequest.image,
+        )
+        bookrequest.delete()
+        return redirect('books:book-list')

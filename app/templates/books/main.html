@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="d-flex flex-row flex-wrap">
     {% for book in books %}
-        <div class="card" style="width: 18rem;">
-            <img src="{{ book.image.url }}" alt="" class="card-img-top" width="200px" height="200px">
+        <div class="card m-5" style="width: 14rem;">
+            <img src="{{ book.image.url }}" alt="" class="card-img-top" width="152px" height="225px">
             <a  href="{% url 'books:detail' book_pk=book.pk %}" class="card-title">{{ book.title }}</a>
             {% if book.rental.user == request.user %}
                 <div class="">
@@ -24,6 +25,7 @@
             {% endif %}
         </div>
     {% endfor %}
+    </div>
     <br>
     <div class="list-group-item-action">
         <h2 class=list-group-item-action">빌린 책 목록</h2>

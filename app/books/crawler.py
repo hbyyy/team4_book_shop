@@ -1,7 +1,8 @@
+import os
+import urllib.request
+
 import requests
 from bs4 import BeautifulSoup
-import urllib.request
-import os
 
 from config import settings
 
@@ -44,17 +45,13 @@ def detail_page_crawler(url):
     imgURL = em_imgBdr.find("img")['src']
     pwd_path = os.getcwd()
 
-
-
     # print(em_imgBdr.find("img")["alt"])
 
-
-
-
     outpath = os.path.join(settings.MEDIA_ROOT, 'books', 'image')
-    download_URL = em_imgBdr.find("img")["alt"] + '.jpg'
-    image_path = outpath + '/' + download_URL
+    image_name = em_imgBdr.find("img")["alt"] + '.jpg'
+    image_path = outpath + '/' + image_name
     # URL download
+    # image_url = urllib.request.urlretrieve(imgURL, image_path)
     image_url = urllib.request.urlretrieve(imgURL, image_path)
     # title
     h2_gd_name = soup.select_one('h2.gd_name')
@@ -74,6 +71,7 @@ def detail_page_crawler(url):
     book_detail_info_dict = {
         'title': title,
         'image_path': image_path,
+        'image_name': image_name,
         'category': categories_order_detail,
         'book_intro': book_introduce_textarea,
     }
