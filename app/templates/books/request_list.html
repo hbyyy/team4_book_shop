@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if bookrequests %}
     {% for bookreq in bookrequests %}
         <div class="d-flex border m-4 justify-content-between">
             <img src="{{ bookreq.image.url }}" alt="" class="img-responsive" width="100px" height="100px">
@@ -14,5 +15,7 @@
 
         </div>
     {% endfor %}
-
+    {% else %}
+    <h1>신청받은 책이 없습니다</h1>
+    {% endif %}
 {% endblock %}

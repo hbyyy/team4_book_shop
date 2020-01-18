@@ -1,5 +1,6 @@
 import os
 import urllib.request
+from urllib.parse import urlencode, quote, unquote
 
 import requests
 from bs4 import BeautifulSoup
@@ -11,12 +12,13 @@ def book_requests(url):
     URL = url
     response = requests.get(URL)
     search_html = response.text
-    soup = BeautifulSoup(search_html)
+    soup = BeautifulSoup(search_html, 'html.parser', from_encoding='utf-8')
     return soup
 
 
-def research_page_crawler(research_keyword):
-    url = 'http://www.yes24.com/searchcorner/Search?keywordAd=&keyword=&domain=ALL&qdomain=%C0%FC%C3%BC&Wcode=001_005&query=' + research_keyword
+def research_page_crawler(research_keyword:str):
+    encode_str = quote(research_keyword.encode('euc-kr'))
+    url = 'http://www.yes24.com/searchcorner/Search?keywordAd=&keyword=&domain=ALL&qdomain=%C0%FC%C3%BC&Wcode=001_005&query=' + encode_str
     soup = book_requests(url)
     div_goodsList = soup.select_one('div.goodsList')
     if div_goodsList is None:
