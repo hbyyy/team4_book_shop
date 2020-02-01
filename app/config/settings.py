@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,10 +24,30 @@ MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# secrets.json load
+secrets_path = os.path.join(ROOT_DIR, 'secrets.json')
+print(secrets_path)
+SECRETS = json.load(open(secrets_path))
+# print(SECRETS['AWS_ACCESS_KEY_ID'])
+# print(SECRETS['AWS_SECRET_ACCESS_KEY'])
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+
+# django AWS S3
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = SECRETS['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = SECRETS['AWS_SECRET_ACCESS_KEY']
+# print(AWS_ACCESS_KEY_ID)
+# print(AWS_SECRET_ACCESS_KEY)
+AWS_STORAGE_BUCKET_NAME = 'wps12th-book-shop'
+AWS_AUTO_CREATE_BUCKET = True
+AWS_REGION = "ap-northeast-2"
+
+# django-storages
+# Django의 FileStorage로 S3Boto3Storage(AWS의 S3)를 사용
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -38,7 +59,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'members.User'
-
 
 # Application definition
 
@@ -54,6 +74,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -88,17 +110,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
+DATABASE_INFO = SECRETS['DATABASES']['default']
+# print(DATABASE_INFO)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        # 데이터베이스 이름
+        'NAME': 'instagram',
+        # RDS username && password
+        'USER': DATABASE_INFO["USER"],
+        'PASSWORD': DATABASE_INFO['PASSWORD'],
+        # RDS endpoint
+        'HOST': 'book-shop.cqypwjxqtvck.ap-northeast-2.rds.amazonaws.com',
+        # default port number
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -118,7 +147,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -131,6 +159,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-
