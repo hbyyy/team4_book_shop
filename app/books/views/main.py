@@ -9,7 +9,7 @@ def main_page_view(request):
     if request.user.is_authenticated:
         books = Book.objects.order_by('title')
         user =request.user
-        if user.ban_date < timezone.now():
+        if user.ban_date is not None and user.ban_date < timezone.now():
             user.ban_date = None
             user.save()
 
