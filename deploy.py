@@ -5,7 +5,7 @@ import subprocess
 from pathlib import Path
 
 HOME = str(Path.home())
-HOST = '15.164.98.120'
+HOST = '15.164.230.133'
 USER = 'ubuntu'
 TARGET = f'{USER}@{HOST}'
 SECRET_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secrets.json')
@@ -49,13 +49,18 @@ def docker_run():
     ssh_run('sudo docker run --rm -it -d -p 80:80 --name book_shop lloasd33/book_shop /bin/bash')
 
 
+def collect_static():
+    print('===========================collectstatic======================')
+    ssh_run('sudo docker exec book_shop python manage.py collectstatic --noinput')
+
+
 def secrets_copy():
     run(f'scp -i {IDENTITY_KEY} {SECRET_FILE_PATH} {TARGET}:/tmp ')
     ssh_run(f'sudo docker cp /tmp/secrets.json book_shop:/srv/Book_shop')
 
 
 def runserver():
-    ssh_run(f'sudo docker exec -d book_shop python manage.py runserver 0:80')
+    ssh_run(f'sudo docker exec -d book_shop supervisord -c ../.config/supervisor.conf -n')
 
 
 if __name__ == '__main__':
@@ -65,4 +70,5 @@ if __name__ == '__main__':
     docker_pull()
     docker_run()
     secrets_copy()
+    collect_static()
     runserver()

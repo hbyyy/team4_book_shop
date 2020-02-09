@@ -1,0 +1,14 @@
+server{
+    listen 80;
+    charset utf-8;
+
+    server_name 15.164.230.133;
+
+    location /static/ {
+        alias       /srv/Book_shop/.static/;
+    }
+
+    location / {
+        proxy_pass      http://unix:/run/book_shop.socket;
+    }
+}
