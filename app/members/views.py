@@ -1,15 +1,12 @@
 import requests
-from django.contrib.auth import login, get_user_model, logout
+from django.contrib.auth import login, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from .forms import LoginForm, SignupForm
 
-User = get_user_model()
-
 
 def login_view(request):
-
     if request.user.is_authenticated is True:
         return redirect('books:book-list')
 
@@ -38,12 +35,11 @@ def login_view(request):
         'form': form,
         'login_url': login_url,
     }
-    #return HttpResponse('hello')
+    # return HttpResponse('hello')
     return render(request, 'members/login.html', context)
 
 
 def signup_view(request):
-
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
@@ -61,13 +57,11 @@ def signup_view(request):
 
 
 def logout_view(request):
-
     logout(request)
     return redirect('members:login')
 
 
 def naver_login(request):
-
     code = request.GET.get('code')
     state = request.GET.get('state')
     if not code or not state:
@@ -77,10 +71,10 @@ def naver_login(request):
     token_params = {
         'grant_type': 'authorization_code',
         'client_id': 'wJcJbLrIqZv3Nq83VgKZ',
-        'client_secret':'hk2BMmOfeG',
+        'client_secret': 'hk2BMmOfeG',
         'code': code,
         'state': state,
-        'redirectURI' : 'http://localhost:8000/members/naver-login/',
+        'redirectURI': 'http://localhost:8000/members/naver-login/',
     }
 
     token_url = '{base}?{params}'.format(
@@ -91,7 +85,7 @@ def naver_login(request):
     access_token = response.json()['access_token']
     print(access_token)
 
-    me_url= 'https://openapi.naver.com/v1/nid/me'
+    me_url = 'https://openapi.naver.com/v1/nid/me'
     me_headers = {
         'Authorization': f'Bearer {access_token}',
     }
@@ -107,5 +101,3 @@ def naver_login(request):
         user = User.objects.create_user(username=naver_username)
         login(request, user)
     return redirect('members:login')
-
-

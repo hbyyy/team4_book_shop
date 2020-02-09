@@ -16,7 +16,7 @@ def book_requests(url):
     return soup
 
 
-def research_page_crawler(research_keyword:str):
+def research_page_crawler(research_keyword:str) -> dict:
     encode_str = quote(research_keyword.encode('euc-kr'))
     url = 'http://www.yes24.com/searchcorner/Search?keywordAd=&keyword=&domain=ALL&qdomain=%C0%FC%C3%BC&Wcode=001_005&query=' + encode_str
     soup = book_requests(url)
