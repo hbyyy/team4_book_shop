@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
+{% load tz %}
 
 {% block content %}
+    {% if ban_date %}
+        <div>
+            <h2 class="text-danger">{{ request.user.ban_date }}까지 대출 불가!</h2>
+        </div>
+    {% endif %}
     <div class="d-flex flex-row flex-wrap">
         {% for book in books %}
             <div class="card m-5" style="width: 16rem;">
@@ -13,7 +19,11 @@
                     {#                    </div>#}
                 </div>
                 <div class="p-0 d-flex justify-content-center">
-                    {% if book.rental.user == request.user %}
+                    {% if ban_date %}
+                        <div class="text-center col p-0">
+                            <p class="text-danger">대출 불가</p>
+                        </div>
+                    {% elif book.rental.user == request.user %}
                         <div class="text-center col p-0">
                             <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}"
                                class="bth btn-danger btn-lg btn-block">반납</a>
@@ -41,11 +51,20 @@
     </div>
     <br>
     <div class="list-group-item-action">
-        <h2 class=list-group-item-action">빌린 책 목록</h2>
+        <h2 class="list-group-item-action d-block">빌린 책 목록</h2>
         {% for rental in request.user.rental_set.all %}
             <ul class="list-group">
                 <li class="list-group-item">{{ rental.book.title }}</li>
-                <li class="list-group-item">{{ rental.end_date }}</li>
+                <li class="list-group-item">
+
+                    {{ rental.end_date }}
+
+                    {% if rental.end_date < current_date %}
+                        <span class="text-danger">반납 시간이 지났습니다!</span>
+
+                    {% endif %}
+
+                </li>
                 <hr>
             </ul>
         {% endfor %}
