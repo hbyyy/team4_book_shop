@@ -57,10 +57,10 @@
                 <li class="list-group-item">{{ rental.book.title }}</li>
                 <li class="list-group-item">
 
-                    {{ rental.end_date }}
+                    대출기간 : {{ rental.end_date }}까지
 
                     {% if rental.end_date < current_date %}
-                        <span class="text-danger">반납 시간이 지났습니다!</span>
+                        <span class="text-danger ml-5">반납 시간이 지났습니다!</span>
 
                     {% endif %}
 
