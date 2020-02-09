@@ -35,6 +35,8 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
+
 # django AWS S3
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = SECRETS['AWS_ACCESS_KEY_ID']
@@ -57,7 +59,7 @@ SECRET_KEY = 'wr#q4l#$&wj2d1ow9ka1jrb-^=u&y(p34*#8p#i6qr8j9j#&xt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'members.User'
 
 # Application definition

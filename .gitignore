@@ -2,6 +2,7 @@ reated by https://www.gitignore.io/api/git,venv,linux,macos,django,python,window
 # Edit at https://www.gitignore.io/?templates=git,venv,linux,macos,django,python,windows,pycharm+all,jupyternotebooks,visualstudiocode
 secrets.json
 .media
+.static
 ### Django ###
 *.log
 *.pot
