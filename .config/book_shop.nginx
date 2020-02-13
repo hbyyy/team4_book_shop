@@ -2,7 +2,7 @@ server{
     listen 80;
     charset utf-8;
 
-    server_name 15.164.230.133;
+    server_name 13.124.91.124;
 
     location /static/ {
         alias       /srv/Book_shop/.static/;

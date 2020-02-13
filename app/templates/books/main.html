@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load tz %}
+
 
 {% block content %}
     {% if ban_date %}
@@ -11,6 +11,7 @@
         {% for book in books %}
             <div class="card m-5" style="width: 16rem;">
                 <div class="card-header bg-white">
+
                     <img src="{{ book.image.url }}" alt="" class="card-img-top border border-dark">
                 </div>
                 {#                    <div class="card-title text-center mt-auto mb-auto">#}

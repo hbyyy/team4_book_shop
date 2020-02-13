@@ -5,11 +5,14 @@ import subprocess
 from pathlib import Path
 
 HOME = str(Path.home())
-HOST = '15.164.230.133'
+#
+HOST = '13.209.15.205'
 USER = 'ubuntu'
 TARGET = f'{USER}@{HOST}'
 SECRET_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secrets.json')
 IDENTITY_KEY = os.path.join(HOME, '.ssh', 'wps-bookshop.pem')
+
+IMAGE_NAME = 'lloasd33/book_shop'
 
 
 def run(cmd):
@@ -33,20 +36,20 @@ def server_update():
 
 # 3.docker build &push
 def docker_build():
-    run('docker build -t lloasd33/book_shop -f Dockerfile . ')
-    run('docker push lloasd33/book_shop')
+    run(f'docker build -t {IMAGE_NAME} -f Dockerfile . ')
+    run(f'docker push {IMAGE_NAME}')
 
 
 # 4.server docker pull
 
 def docker_pull():
-    ssh_run('sudo docker pull lloasd33/book_shop')
+    ssh_run(f'sudo docker pull {IMAGE_NAME}')
 
 
 def docker_run():
     ssh_run('sudo docker stop book_shop')
     # ssh_run('sudo docker rm book_shop')
-    ssh_run('sudo docker run --rm -it -d -p 80:80 --name book_shop lloasd33/book_shop /bin/bash')
+    ssh_run(f'sudo docker run --rm -it -d -p 80:80 --name book_shop {IMAGE_NAME} /bin/bash')
 
 
 def collect_static():
