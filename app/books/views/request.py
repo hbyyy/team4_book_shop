@@ -35,8 +35,7 @@ def book_request_save_view(request):
         url = request.POST['url']
         book_info = detail_page_crawler(url)
         print(book_info)
-        # image_path ='/'+ book_info['image_path'].split('.')[1] + '.' + book_info['image_path'].split('.')[2]
-        # image_path_vol1 = image_path.replace(' ',"_")
+
         image_path = book_info['image_path']
         with open(image_path, 'rb') as f:
             image = File(f)
@@ -53,16 +52,7 @@ def book_request_save_view(request):
         context = {
             'bookrequest': bookrequest,
         }
-        # context = {
-        #     'book_info' : book_info,
-        #     'image_path' : image_path,
-        # }
-        # BookRequest.objects.create(
-        #     title=book_info['title'],
-        #     category=book_info['category'],
-        #     book_intro=book_info['book_intro'],
-        #     image=book_info['image_path'],
-        # )
+
         return render(request, 'request_success.html', context)
 
 
