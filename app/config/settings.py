@@ -118,17 +118,19 @@ DATABASE_INFO = SECRETS['DATABASES']['default']
 # print(DATABASE_INFO)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        # 데이터베이스 이름
-        'NAME': 'bookshop',
-        # RDS username && password
-        'USER': DATABASE_INFO["USER"],
-        'PASSWORD': DATABASE_INFO['PASSWORD'],
-        # RDS endpoint
-        'HOST': 'wps-bookshop.cgl3xekxzz5k.ap-northeast-2.rds.amazonaws.com',
-        # default port number
-        'PORT': '5432',
-}
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # # 데이터베이스 이름
+        # 'NAME': 'bookshop',
+        # # RDS username && password
+        # 'USER': DATABASE_INFO["USER"],
+        # 'PASSWORD': DATABASE_INFO['PASSWORD'],
+        # # RDS endpoint
+        # 'HOST': 'wps-bookshop.cgl3xekxzz5k.ap-northeast-2.rds.amazonaws.com',
+        # # default port number
+        # 'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+    }
 }
 
 # Password validation
