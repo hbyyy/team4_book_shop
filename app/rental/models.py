@@ -26,6 +26,7 @@ class Rental(models.Model):
                                 day=(start_date + timedelta(days=3)).day,
                                 hour=10 - 9,
                                 tzinfo=timezone.utc)
+            self.end_date = end_date
         # 그 외에는 반납시간은 다음날 10시로 설정
         else:
             end_date = datetime(year=start_date.year,
