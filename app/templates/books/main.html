@@ -37,10 +37,24 @@
                     {% elif book.rental.user and book.rental.user is not request.user %}
                         <div class="text-center col p-0">
                             {#                    <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}" class="bth btn-primary p-3">대출중</a>#}
+                            <div class="d-flex justify-content-around">
+                                <p class="text-danger">대출중</p>
+                                {% if not book.reservation %}
+                                    <a href="{% url 'reservation:reservation' pk=book.pk %}" class="">예약하기</a>
 
-                            <p class="m-auto text-danger">대출중</p>
+                                {% else %}
+
+                                    <p>예약한 사람 : {{ book.reservation.user.username }}</p>
+                                    {% if book.reservation.user == request.user %}
+                                        <a href="{% url 'reservation:reservation-cancel' pk=book.reservation.pk %}">예약 취소</a>
+                                    {% endif %}
+
+
+                                {% endif %}
+                            </div>
                             <p class="text-secondary d-inline" style="font-size: 0.8rem">빌린사람
                                 : {{ book.rental.user.username }}</p>
+
 
                         </div>
                         <br>
