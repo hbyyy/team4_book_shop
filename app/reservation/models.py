@@ -8,7 +8,7 @@ from django.utils import timezone
 
 
 class Reservation(models.Model):
-    book = models.ForeignKey('books.Book', on_delete=models.CASCADE)
+    book = models.OneToOneField('books.Book', on_delete=models.CASCADE)
     user = models.ForeignKey('members.User', on_delete=models.CASCADE)
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField(null=True)
