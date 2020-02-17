@@ -8,14 +8,14 @@
             <h4 class="mb-auto mt-auto">{{ bookreq.title }}</h4>
             <div class="bg-light col-2">
                 <div>
-                    <a href="{% url 'books:book-request-confirm' bookrequest_pk=bookreq.pk %}"
-                       class="bth btn-outline-primary mt-3">책 추가</a>
+                    <a type="button" href="{% url 'books:book-request-confirm' bookrequest_pk=bookreq.pk %}"
+                       class="bth btn-dark btn-lg mt-4" style="text-align: center;">책 추가</a>
                 </div>
             </div>
 
         </div>
     {% endfor %}
     {% else %}
-    <h1>신청받은 책이 없습니다</h1>
+    <h1 style="font-family: 'Gugi', cursive;">신청받은 책이 없습니다</h1>
     {% endif %}
 {% endblock %}
