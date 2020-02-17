@@ -6,22 +6,35 @@
 {% endblock %}
 
 {% block content %}
-    <div class="form-group">
-        <form action="" method="get">
+    <div class="row background">
+        <div class="form-group" style="margin-bottom: 20px; margin-left: auto; margin-right: auto;">
+            <form class="form-control-lg action="
+            " method="get">
             <input type="text" name="keyword">
-            <button type="submit" class="btn-">검색</button>
-        </form>
-    </div>
-    {% for key,value in book_list.items %}
-        <div>
-            <div> {{ key }}</div>
-
-            <form action="{% url 'books:book-request-save' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" value="{{ value }}" name="url">신청하기 </button>
+            <button type="submit" class="btn btn-dark">검색</button>
             </form>
+        </div>
+        <div class="col-xs-12">
+            <img src="https://pixabay.com/get/57e0d0414a53ac14f6d1867dda6d49214b6ac3e456597040772e7cd693/knowledge-1052010_1920.jpg"
+                 alt="Los Angeles" class="img-responsive" style="width:100%; height:700px">
+        </div>
 
-{#            <button type="submit" name="request" value="{{ value }}">신청</button>#}
+    </div>
+      <h2 class="list-group-item-action d-block" style="text-align: center; padding-top: 50px; font-family: 'Gugi', cursive;"">검색된 책 목록</h2>
+    {% for key,value in book_list.items %}
+        <div style="margin: 50px;">
+            <ul class="list-group">
+                <li class="list-group-item" style="display: flex; justify-content: space-between;
+    align-items: center;">
+                    {{ key }}
+                    <form action="{% url 'books:book-request-save' %}" method="post" style="display: inline-block">
+                        {% csrf_token %}
+                        <button type="submit" value="{{ value }}" name="url" class="btn btn-dark">신청하기</button>
+                    </form>
+                </li>
+
+
+                {#            <button type="submit" name="request" value="{{ value }}">신청</button>#}
         </div>
     {% endfor %}
 
