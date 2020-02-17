@@ -41,10 +41,9 @@ STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = SECRETS['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = SECRETS['AWS_SECRET_ACCESS_KEY']
-# print(AWS_ACCESS_KEY_ID)
-# print(AWS_SECRET_ACCESS_KEY)
-AWS_STORAGE_BUCKET_NAME = 'wps12th-book-shop-hby'
-# AWS_AUTO_CREATE_BUCKET = True
+AWS_STORAGE_BUCKET_NAME = 'wps12th-book-shop-hby2'
+AWS_DEFAULT_ACL = 'private'
+AWS_AUTO_CREATE_BUCKET = True
 AWS_REGION = "ap-northeast-2"
 
 # django-storages
