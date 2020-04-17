@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os
 import json
+import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,13 +35,14 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
+
 # django AWS S3
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = SECRETS['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = SECRETS['AWS_SECRET_ACCESS_KEY']
-# print(AWS_ACCESS_KEY_ID)
-# print(AWS_SECRET_ACCESS_KEY)
-AWS_STORAGE_BUCKET_NAME = 'wps12th-book-shop'
+AWS_STORAGE_BUCKET_NAME = 'wps12th-book-shop-hby2'
+AWS_DEFAULT_ACL = 'private'
 AWS_AUTO_CREATE_BUCKET = True
 AWS_REGION = "ap-northeast-2"
 
@@ -57,7 +58,7 @@ SECRET_KEY = 'wr#q4l#$&wj2d1ow9ka1jrb-^=u&y(p34*#8p#i6qr8j9j#&xt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'members.User'
 
 # Application definition
@@ -118,12 +119,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         # 데이터베이스 이름
-        'NAME': 'instagram',
+        'NAME': 'bookshop',
         # RDS username && password
         'USER': DATABASE_INFO["USER"],
         'PASSWORD': DATABASE_INFO['PASSWORD'],
         # RDS endpoint
-        'HOST': 'book-shop.cqypwjxqtvck.ap-northeast-2.rds.amazonaws.com',
+        'HOST': 'wps-bookshop.cgl3xekxzz5k.ap-northeast-2.rds.amazonaws.com',
         # default port number
         'PORT': '5432',
     }

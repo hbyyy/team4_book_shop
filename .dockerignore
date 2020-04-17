@@ -1,0 +1,10 @@
+/.gitignore
+/secrets.json
+/Dockerfile
+/deploy.py
+/.media
+/app/.idea
+/app/book_detail_info-20200117.ipynb
+/app/db.sqlite3
+/.dockerignore
+/.static

@@ -27,7 +27,7 @@ urlpatterns = [
     path('members/', include('members.urls')),
     path('books/', include('books.urls')),
     path('rental/', include('rental.urls')),
-    path('reservation', include('reservation.urls')),
+    path('reservation/', include('reservation.urls')),
 ]
 
 urlpatterns += static(

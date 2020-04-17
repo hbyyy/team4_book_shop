@@ -1,8 +1,10 @@
-from datetime import timedelta
+# from datetime import timedelta, datetime
+from datetime import timedelta, datetime
 
 from django.db import models
 # Create your models here.
 from django.utils import timezone
+
 
 from members.models import User
 
@@ -15,7 +17,24 @@ class Rental(models.Model):
     is_extended = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        self.end_date = self.start_date + timedelta(days=1)
+        start_date = self.start_date
+
+        #금요일에 빌리면 반납시간은 월요일 10시로 설정
+        if self.start_date.weekday() == 4:
+            end_date = datetime(year=start_date.year,
+                                month=start_date.month,
+                                day=(start_date + timedelta(days=3)).day,
+                                hour=10 - 9,
+                                tzinfo=timezone.utc)
+            self.end_date = end_date
+        # 그 외에는 반납시간은 다음날 10시로 설정
+        else:
+            end_date = datetime(year=start_date.year,
+                                month=start_date.month,
+                                day=(start_date + timedelta(days=1)).day,
+                                hour=10 - 9,
+                                tzinfo=timezone.utc)
+            self.end_date = end_date
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
