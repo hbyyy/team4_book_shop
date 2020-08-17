@@ -6,7 +6,7 @@ from pathlib import Path
 
 HOME = str(Path.home())
 #
-HOST = '13.209.15.205'
+HOST = '15.165.123.198'
 USER = 'ubuntu'
 TARGET = f'{USER}@{HOST}'
 SECRET_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secrets.json')

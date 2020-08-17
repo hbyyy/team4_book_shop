@@ -26,10 +26,7 @@ MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
 
 # secrets.json load
 secrets_path = os.path.join(ROOT_DIR, 'secrets.json')
-print(secrets_path)
 SECRETS = json.load(open(secrets_path))
-# print(SECRETS['AWS_ACCESS_KEY_ID'])
-# print(SECRETS['AWS_SECRET_ACCESS_KEY'])
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
@@ -46,14 +43,8 @@ AWS_DEFAULT_ACL = 'private'
 AWS_AUTO_CREATE_BUCKET = True
 AWS_REGION = "ap-northeast-2"
 
-# django-storages
-# Django의 FileStorage로 S3Boto3Storage(AWS의 S3)를 사용
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'wr#q4l#$&wj2d1ow9ka1jrb-^=u&y(p34*#8p#i6qr8j9j#&xt'
+SECRET_KEY = SECRETS['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,7 +66,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-
     'storages',
 ]
 
