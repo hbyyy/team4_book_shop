@@ -1,7 +1,7 @@
 from .base import *
 
 ALLOWED_HOSTS = ['web']
-DEBUG = True
+DEBUG = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

@@ -4,9 +4,11 @@ services:
   nginx:
     image: lloasd33/bookmarket-nginx
     ports:
-      - "8080:8080"
+      - "80:80"
+      - "443:443"
     volumes:
       - static-volume:/.static
+      - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - web
 
@@ -14,7 +16,7 @@ services:
   web:
     image: lloasd33/bookmarket
     volumes:
-      - /home/hby/projects/wps12th/djangoProject/hackathon/team4_book_shop/secrets.json:/srv/Book_shop/secrets.json
+      - /home/ubuntu/secrets.json:/srv/Book_shop/secrets.json
       - static-volume:/srv/Book_shop/.static
     environment:
       - BOOKMARKET_PROD=1
