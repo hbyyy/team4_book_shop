@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  nginx:
+    image: lloasd33/bookmarket-nginx
+    ports:
+      - "8080:8080"
+    volumes:
+      - static-volume:/.static
+    depends_on:
+      - web
+
+
+  web:
+    image: lloasd33/bookmarket
+    volumes:
+      - /home/hby/projects/wps12th/djangoProject/hackathon/team4_book_shop/secrets.json:/srv/Book_shop/secrets.json
+      - static-volume:/srv/Book_shop/.static
+    command:
+      - /bin/bash
+      - -c
+      - |
+        python manage.py migrate
+        python manage.py collectstatic --noinput
+        gunicorn -b 0.0.0.0:8000 config.wsgi
+    expose:
+      - "8000"
+
+volumes:
+  static-volume:
