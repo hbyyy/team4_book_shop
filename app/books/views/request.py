@@ -6,17 +6,6 @@ from ..crawler import research_page_crawler, detail_page_crawler
 
 
 def book_request_view(request):
-    # if request.method == 'POST':
-    #     value = request.POST['q']
-    #     book_list = research_page_crawler(value)
-    #     print('----------------------------------------')
-    #     print(book_list)
-    #     print('----------------------------------------')
-    #     context = {
-    #         'book_list': book_list
-    #     }
-    #     return render(request, 'request.html', context)
-
     try:
         value = request.GET['keyword']
         book_list = research_page_crawler(value)
@@ -34,12 +23,10 @@ def book_request_save_view(request):
     if request.method == 'POST':
         url = request.POST['url']
         book_info = detail_page_crawler(url)
-        print(book_info)
 
         image_path = book_info['image_path']
         with open(image_path, 'rb') as f:
             image = File(f)
-            print(image.name, image.size)
             bookrequest = BookRequest(
                 title=book_info['title'],
                 category=book_info['category'],
@@ -47,7 +34,6 @@ def book_request_save_view(request):
             )
             bookrequest.image.save(book_info['title'] + '.jpg', image, save=False)
             bookrequest.save()
-            # bookrequest.image.sa
 
         context = {
             'bookrequest': bookrequest,

@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block head %}
-    <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-{% endblock %}
-
 {% block content %}
     <div class="container-fluid">
         <div class="mr-auto ml-auto mt-3
@@ -15,7 +11,6 @@
             <div class="card text-center p-4">
                 <h1>Book Shop</h1>
                 <p class="text-secondary">도서 대출을 원하시면 가입해주세요</p>
-{#                <button class="btn btn-success btn-block">Naver로 로그인</button>#}
                 <hr>
                 <form action="{% url 'members:signup' %}" method="POST">
                     {% csrf_token %}
@@ -41,7 +36,6 @@
                     {% endif %}
                     <button type="submit" class="btn btn-primary btn-block">가입</button>
                 </form>
-{#                <p class="text-secondary">가입하면 Book Shop의 약관 데이터 정책 및 쿠키 정책에 동의하게 됩니다</p>#}
             </div>
 
             <div class="card text-center p-4 mt-3 mb-3">
