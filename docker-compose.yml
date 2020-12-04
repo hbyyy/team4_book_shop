@@ -16,15 +16,31 @@ services:
     volumes:
       - /home/hby/projects/wps12th/djangoProject/hackathon/team4_book_shop/secrets.json:/srv/Book_shop/secrets.json
       - static-volume:/srv/Book_shop/.static
+    environment:
+      - BOOKMARKET_PROD=1
     command:
       - /bin/bash
       - -c
       - |
+        sleep 5
         python manage.py migrate
         python manage.py collectstatic --noinput
         gunicorn -b 0.0.0.0:8000 config.wsgi
     expose:
       - "8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=bookmarket
+      - POSTGRES_USER=BOOKMARKET
+      - POSTGRES_PASSWORD=BOOKMARKET1234
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+    ports:
+      - "10632:10632"
+    command: -p 10632
 
 volumes:
   static-volume:
