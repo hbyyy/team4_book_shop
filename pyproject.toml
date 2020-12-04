@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "team4_book_shop"
+version = "0.1.0"
+description = ""
+authors = ["hbyyy <qjaduddl94@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+Django = "<3.0"
+django-storages = "^1.10.1"
+requests = "^2.25.0"
+boto3 = "^1.16.28"
+bs4 = "^0.0.1"
+django-extensions = "^3.1.0"
+gunicorn = "^20.0.4"
+supervisor = "^4.2.1"
+psycopg2-binary = "^2.8.6"
+Pillow = "^8.0.1"
+
+[tool.poetry.dev-dependencies]
+notebook = "^6.1.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

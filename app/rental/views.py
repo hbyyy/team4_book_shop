@@ -1,6 +1,3 @@
-from django.http import HttpResponse
-
-
 # Create your views here.
 from django.shortcuts import redirect
 
@@ -21,6 +18,3 @@ def return_view(request, book_pk):
     rental = Rental.objects.get(book=book, user=user)
     rental.delete()
     return redirect('books:book-list')
-
-
-

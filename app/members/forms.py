@@ -24,7 +24,6 @@ class LoginForm(forms.Form):
     )
 
     def clean(self):
-
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
         user = authenticate(username=username, password=password)
@@ -40,7 +39,6 @@ class LoginForm(forms.Form):
 
 
 class SignupForm(forms.Form):
-
     name = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -71,7 +69,6 @@ class SignupForm(forms.Form):
         if User.objects.filter(username=username).exists():
             raise ValidationError('이미 사용중인 username입니다')
         return username
-
 
     def save(self):
         """

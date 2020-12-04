@@ -15,7 +15,8 @@
 
     <div class="list-group-item-action">
         <div class="title" style="padding-top: 100px; padding-bottom: 50px">
-            <h2 class="list-group-item-action d-block" style="text-align: center; font-family: 'Gugi', cursive;">전체 책 목록</h2>
+            <h2 class="list-group-item-action d-block" style="text-align: center; font-family: 'Gugi', cursive;">전체 책
+                목록</h2>
         </div>
         {% if ban_date %}
             <div>
@@ -28,13 +29,12 @@
                 <div class="col-sm-3">
                     <div class="card m-5" style="width: 16rem; height: 24rem; ">
                         <div class="card-header bg-white">
-                            <img src="{{ book.image.url }}" alt="" class="card-img-top border border-dark" style="height: 18rem;>
-                        </div>
-                        {#                    <div class="card-title text-center mt-auto mb-auto">#}
-                        <div class="card-body text-center">
+                            <img src="{{ book.image.url }}" alt="" class="card-img-top border border-dark"
+                                 style="height: 18rem;">
                             <a href="{% url 'books:detail' book_pk=book.pk %}" class="card-link">{{ book.title }}</a>
-                            {#                    </div>#}
+
                         </div>
+
                         <div class="p-0 d-flex justify-content-center">
                             {% if ban_date %}
                                 <div class="text-center col p-0">
@@ -47,7 +47,7 @@
                                 </div>
                             {% elif book.rental.user and book.rental.user is not request.user %}
                                 <div class="text-center col p-0">
-                                    {#                    <a type="submit" href="{% url 'rental:return' book_pk=book.pk %}" class="bth btn-primary p-3">대출중</a>#}
+
                                     <div class="d-flex justify-content-around">
                                         <p class="text-danger">대출중</p>
                                         {% if not book.reservation %}
@@ -85,7 +85,8 @@
 
         <div class="booklist">
             <div class="title" style="padding-top: 100px; padding-bottom: 50px">
-                <h2 class="list-group-item-action d-block" style="text-align: center; font-family: 'Gugi', cursive;"">빌린 책 목록</h2>
+                <h2 class="list-group-item-action d-block" style="text-align: center; font-family: 'Gugi', cursive;"">빌린
+                책 목록</h2>
             </div>
 
             {% for rental in request.user.rental_set.all %}

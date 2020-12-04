@@ -1,6 +1,5 @@
 import os
-import urllib.request
-from urllib.parse import urlencode, quote, unquote
+from urllib.parse import quote
 
 import requests
 from bs4 import BeautifulSoup
@@ -16,13 +15,13 @@ def book_requests(url):
     return soup
 
 
-def research_page_crawler(research_keyword:str) -> dict:
+def research_page_crawler(research_keyword: str) -> dict:
     encode_str = quote(research_keyword.encode('euc-kr'))
     url = 'http://www.yes24.com/searchcorner/Search?keywordAd=&keyword=&domain=ALL&qdomain=%C0%FC%C3%BC&Wcode=001_005&query=' + encode_str
     soup = book_requests(url)
     div_goodsList = soup.select_one('div.goodsList')
     if div_goodsList is None:
-        return None
+        return {}
     td_goods_infogrp = div_goodsList.select('td.goods_infogrp')
 
     search_list = []
@@ -33,8 +32,6 @@ def research_page_crawler(research_keyword:str) -> dict:
 
         href = 'http://www.yes24.com' + test['href']
         href_list.append(href)
-    print(href_list)
-    print(search_list)
     book_research_list_data = {}
     for href, title in zip(href_list, search_list):
         book_research_list_data[title] = href
@@ -44,18 +41,10 @@ def research_page_crawler(research_keyword:str) -> dict:
 def detail_page_crawler(url):
     soup = book_requests(url)
     em_imgBdr = soup.find('em', class_='imgBdr')
-    imgURL = em_imgBdr.find("img")['src']
-    pwd_path = os.getcwd()
-
-    # print(em_imgBdr.find("img")["alt"])
 
     outpath = os.path.join(settings.MEDIA_ROOT, 'books', 'image')
     image_name = em_imgBdr.find("img")["alt"] + '.jpg'
     image_path = outpath + '/' + image_name
-    # URL download
-    # image_url = urllib.request.urlretrieve(imgURL, image_path)
-    image_url = urllib.request.urlretrieve(imgURL, image_path)
-    # title
     h2_gd_name = soup.select_one('h2.gd_name')
     title = h2_gd_name.getText()
     # 카테고리
@@ -64,8 +53,6 @@ def detail_page_crawler(url):
     categories_order_detail = []
     for i in categories_order.find('li').find_all('a'):
         categories_order_detail.append(i.get_text())
-    # ['국내도서', 'IT 모바일', '웹사이트', 'HTML/JavaScript/CSS/jQuery']
-    # 책소개
     book_intro = soup.find('div', id='infoset_introduce')
     book_introduce_textarea = book_intro.select_one('textarea', class_='txtContentText').get_text().replace("\r\n", "")
     # 목차

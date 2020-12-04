@@ -1,3 +1,5 @@
+/.cert
+
 reated by https://www.gitignore.io/api/git,venv,linux,macos,django,python,windows,pycharm+all,jupyternotebooks,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=git,venv,linux,macos,django,python,windows,pycharm+all,jupyternotebooks,visualstudiocode
 secrets.json
@@ -10,6 +12,7 @@ secrets.json
 __pycache__/
 local_settings.py
 db.sqlite3
+*sqlite3.db
 db.sqlite3-journal
 media
 /app/statics/*

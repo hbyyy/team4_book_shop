@@ -13,16 +13,12 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import json
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 STATIC_DIR = os.path.join(BASE_DIR, 'statics')
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 # secrets.json load
 secrets_path = os.path.join(ROOT_DIR, 'secrets.json')
@@ -34,22 +30,9 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
 
-# django AWS S3
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = SECRETS['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = SECRETS['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = 'wps12th-book-shop-hby2'
-AWS_DEFAULT_ACL = 'private'
-AWS_AUTO_CREATE_BUCKET = True
-AWS_REGION = "ap-northeast-2"
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+SECRET_KEY = SECRETS['DJANGO_SECRET_KEY']
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRETS['SECRET_KEY']
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'members.User'
 
 # Application definition
@@ -101,27 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-DATABASE_INFO = SECRETS['DATABASES']['default']
-# print(DATABASE_INFO)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        # 데이터베이스 이름
-        'NAME': 'bookshop',
-        # RDS username && password
-        'USER': DATABASE_INFO["USER"],
-        'PASSWORD': DATABASE_INFO['PASSWORD'],
-        # RDS endpoint
-        'HOST': 'wps-bookshop.cgl3xekxzz5k.ap-northeast-2.rds.amazonaws.com',
-        # default port number
-        'PORT': '5432',
-    }
-}
-
-# Password validation
-# https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
