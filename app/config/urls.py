@@ -17,9 +17,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from members import views
-
 from config import settings
+from members import views
 
 urlpatterns = [
     path('', views.login_view, name='login'),
