@@ -17,8 +17,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 ROOT_DIR = os.path.dirname(BASE_DIR)
 STATIC_DIR = os.path.join(BASE_DIR, 'statics')
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
 
 # secrets.json load
 secrets_path = os.path.join(ROOT_DIR, 'secrets.json')
@@ -31,6 +29,9 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
+
 SECRET_KEY = SECRETS['DJANGO_SECRET_KEY']
 
 AUTH_USER_MODEL = 'members.User'
