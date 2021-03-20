@@ -34,7 +34,9 @@ services:
       - db
 
   db:
-    image: postgres
+    image: postgres:13.1
+    volumes:
+      - /home/ubuntu/.pg13-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=bookmarket
       - POSTGRES_USER=BOOKMARKET
